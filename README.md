@@ -1,5 +1,4 @@
 # Paper16-SIMULE
 
-Joint Structure Estimation of Multiple Sparse GGM or NGMs from Multi-context Data. 
-
-Code / Data / Tool will be released here when paper gets accepted.
+"A constrained L1 minimization approach for estimating multiple Sparse Gaussian or Nonparanormal Graphical Models", 
+accepted by Journal of Machine Learning 
