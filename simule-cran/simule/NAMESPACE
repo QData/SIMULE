@@ -1,0 +1,3 @@
+exportPattern("^[[:alpha:]]+")
+import("lpSolve","parallel","pcaPP")
+export(simule)
