@@ -15,5 +15,6 @@ simule(X, lambda, epsilon, covType = "cov", parallel = FALSE)
 An R implementation of simule method, which is introduced in A constrained l1 minimization approach for estimating multiple Sparse Gaussian or Nonparanormal Graphical Models
 }
 \examples{
-simule(X, 0.05, 1, covType = "cov", TRUE)
+data(exampleData)
+simule(X , 0.05, 1, covType = "cov", FALSE)
 }

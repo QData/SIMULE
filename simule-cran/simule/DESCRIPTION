@@ -9,5 +9,5 @@ Depends: R (>= 3.0.0), lpSolve, pcaPP
 Suggests: parallel
 Description: This package is an R implementation of SIMULE (Shared and Individual parts of MULtiple graphs Explicitly). For more details, please see https://arxiv.org/abs/1605.03468
 License: GPL-2
-URL: https://www.cs.virginia.edu/bw4mw, https://github.com/UVA-MachineLearningBioinformatics/Papers-sGGM
-BugReports: https://github.com/UVA-MachineLearningBioinformatics/Papers-sGGM
+URL: https://www.cs.virginia.edu/~bw4mw, https://github.com/QData/SIMULE
+BugReports: https://github.com/QData/SIMULE
