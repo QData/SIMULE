@@ -1,3 +1,4 @@
 exportPattern("^[[:alpha:]]+")
 import("lpSolve","parallel","pcaPP")
+importFrom("stats", "cov")
 export(simule)
