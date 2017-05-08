@@ -118,3 +118,20 @@ simule <- function(X, lambda, epsilon, covType = "cov",parallel = FALSE ){
     }
     return(Graphs)
 }
+
+plot.jgl <-
+  function(x,...)
+  {
+    .env = "environment: namespace:JGL"
+    #UseMethod("plot")
+    library(igraph)
+    K=length(Graphs)
+    adj = make.adj.matrix(Graphs)
+    diag(adj)=0
+    gadj = graph.adjacency(adj,mode="upper",weighted=TRUE)
+    #weight the edges according to the classes they belong to
+    E(gadj)$color = 2^(K)-get.edge.attribute(gadj,"weight")
+    #plot the net using igraph
+    plot(gadj, vertex.frame.color="white",layout=layout.fruchterman.reingold,
+         vertex.label=NA, vertex.label.cex=3, vertex.size=1)
+  }
