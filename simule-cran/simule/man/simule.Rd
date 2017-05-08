@@ -14,6 +14,15 @@ simule(X, lambda, epsilon, covType = "cov", parallel = FALSE)
 \description{
 An R implementation of simule method, which is introduced in A constrained l1 minimization approach for estimating multiple Sparse Gaussian or Nonparanormal Graphical Models
 }
+\value{
+\item{Graphs}{A list of the estimated inverse covariance matrices.}
+}
+\author{
+Beilun Wang
+}
+\references{
+Beilun Wang, Ritambhara Singh, Yanjun Qi (2017).  A constrained L1 minimization approach for estimating multiple Sparse Gaussian or Nonparanormal Graphical Models. https://arxiv.org/abs/1605.03468
+}
 \examples{
 \dontrun{
 data(exampleData)
