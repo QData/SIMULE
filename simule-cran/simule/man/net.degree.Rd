@@ -2,10 +2,10 @@
 \alias{net.degree}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-List the degree of every node in all classes.  
+List the degree of every node in all classes.
 }
 \description{
-For each class, lists the degree of every node.  
+For each class, lists the degree of every node.
 }
 \usage{
 net.degree(theta)
@@ -28,12 +28,12 @@ Patrick Danaher}
 
 \examples{
 ## load an example dataset with K=two classes, p=200 features, and n=100 samples per class:
-data(example.data)
-str(example.data)
-## run fgl:
-fgl.results = JGL(Y=example.data,penalty="fused",lambda1=.25,lambda2=.1)
+## load an example dataset with K=two tasks, p=100 features, and n=200 samples per task:
+data(exampleData)
+##run simule
+result = simule(X = exampleData , 0.05, 1, covType = "cov", FALSE)
 ## get degree list:
-net.degree(fgl.results$theta)
+net.degree(result$Graphs)
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

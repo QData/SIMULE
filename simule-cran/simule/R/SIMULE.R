@@ -116,17 +116,19 @@ simule <- function(X, lambda, epsilon, covType = "cov",parallel = FALSE ){
             }
         }
     }
-    return(Graphs)
+    out = list(Graphs = Graphs)
+    class(out) = "simule"
+    return(out)
 }
 
-plot.jgl <-
+plot.simule <-
   function(x,...)
   {
-    .env = "environment: namespace:JGL"
+    .env = "environment: namespace:simule"
     #UseMethod("plot")
-    library(igraph)
+    Graphs = x$Graphs
     K=length(Graphs)
-    adj = make.adj.matrix(Graphs)
+    adj = .make.adj.matrix(Graphs)
     diag(adj)=0
     gadj = graph.adjacency(adj,mode="upper",weighted=TRUE)
     #weight the edges according to the classes they belong to
@@ -134,4 +136,27 @@ plot.jgl <-
     #plot the net using igraph
     plot(gadj, vertex.frame.color="white",layout=layout.fruchterman.reingold,
          vertex.label=NA, vertex.label.cex=3, vertex.size=1)
+  }
+
+.make.adj.matrix <-
+  function(theta, separate=FALSE)
+  {
+    K = length(theta)
+    adj = list()
+    if(separate)
+    {
+      for(k in 1:K)
+      {
+        adj[[k]] = (abs(theta[[k]])>1e-5)*1
+      }
+    }
+    if(!separate)
+    {
+      adj = 0*theta[[1]]
+      for(k in 1:K)
+      {
+        adj = adj+(abs(theta[[k]])>1e-5)*2^(k-1)
+      }
+    }
+    return(adj)
   }
