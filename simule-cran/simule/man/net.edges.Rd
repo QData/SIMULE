@@ -21,11 +21,10 @@ A list of pXp matrices, each an estimated sparse inverse covariance matrix.  (Fo
 edges, a K-length list, each element of the list an igraph.es object detailing all pairs of connected nodes in the class.
 }
 \references{
-Patrick Danaher, Pei Wang and Daniela Witten (2011).  The joint graphical lasso for inverse covariance estimation across multiple classes.  http://arxiv.org/abs/1111.0324
+Beilun Wang, Ritambhara Singh and Yanjun Qi (2017).  A Constrained L1 Minimization Approach for Estimating Multiple Sparse Gaussian or Nonparanormal Graphical Models. <arXiv:1605.03468>
 }
 \author{
-Patrick Danaher
-}
+Beilun Wang}
 
 \examples{
 ## load an example dataset with K=two tasks, p=100 features, and n=200 samples per task:
