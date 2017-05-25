@@ -5,6 +5,8 @@ accepted by Journal of Machine Learning
 
 # SIMULE
 This is an R implementation of the [SIMULE](https://arxiv.org/abs/1605.03468).
+
+See Manual: https://cran.r-project.org/web/packages/simule/simule.pdf
 ## Dependency
 It depends on the following existing packages. To use them, simply
 ```r
