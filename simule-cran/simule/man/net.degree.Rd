@@ -27,12 +27,14 @@ Beilun Wang}
 
 
 \examples{
+\dontrun{
 ## load an example dataset with K=two tasks, p=100 features, and n=200 samples per task:
 data(exampleData)
 ##run simule
 result = simule(X = exampleData , 0.05, 1, covType = "cov", FALSE)
 ## get degree list:
 net.degree(result$Graphs)
+}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
