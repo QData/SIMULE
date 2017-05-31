@@ -13,15 +13,15 @@ net.hubs(theta, nhubs = 10)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{theta}{
-A list of pXp matrices, each an estimated sparse inverse covariance matrix.  (For example, the result of FGL or GGL.)
+A list of pXp matrices, each element represents an estimated sparse inverse covariance matrix.  (For example, the result of SIMULE.)
 }
   \item{nhubs}{
-The number of hubs to be identified.  net.hubs() will list the degree of the nhubs most connected nodes in each class.
+The number of hubs to be identified.
 }
 }
 
 \value{
-hubs, a list of length K, each element of which is a vector giving the degree of the most connected nodes in the corresponding class.}
+hubs, a list of length K, each element is a vector of Length n hubs giving the degree of the most connected nodes of the corresponding class.}
 \references{
 Beilun Wang, Ritambhara Singh and Yanjun Qi (2017).  A Constrained L1 Minimization Approach for Estimating Multiple Sparse Gaussian or Nonparanormal Graphical Models. <arXiv:1605.03468>
 }
@@ -29,7 +29,7 @@ Beilun Wang, Ritambhara Singh and Yanjun Qi (2017).  A Constrained L1 Minimizati
 Beilun Wang}
 \examples{
 \dontrun{
-## load an example dataset with K=two tasks, p=100 features, and n=200 samples per task:
+## load an example dataset with K=2 tasks, p=100 features, and n=200 samples per task:
 data(exampleData)
 ##run simule
 result = simule(X = exampleData , 0.05, 1, covType = "cov", FALSE)

@@ -5,7 +5,7 @@
 List the degree of every node in all classes.
 }
 \description{
-For each class, lists the degree of every node.
+Lists the degree of every node for each class.
 }
 \usage{
 net.degree(theta)
@@ -13,12 +13,12 @@ net.degree(theta)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{theta}{
-A list of pXp matrices, each an estimated sparse inverse covariance matrix.  (For example, the result of simule.)
+A list of pXp matrices, each element represents an estimated sparse inverse covariance matrix.  (For example, the result of the SIMULE algorithm.)
 }
 }
 
 \value{
-degree, a list of p-length vectors, each giving the degree of all p nodes in the network for the corresponding class.}
+Degrees, in the format of a list of length p vectors represents the degree of all p nodes in the network for a class.}
 \references{
 Beilun Wang, Ritambhara Singh and Yanjun Qi (2017).  A Constrained L1 Minimization Approach for Estimating Multiple Sparse Gaussian or Nonparanormal Graphical Models. <arXiv:1605.03468>
 }
@@ -28,7 +28,7 @@ Beilun Wang}
 
 \examples{
 \dontrun{
-## load an example dataset with K=two tasks, p=100 features, and n=200 samples per task:
+## load an example dataset with K=2 tasks, p=100 features, and n=200 samples per task:
 data(exampleData)
 ##run simule
 result = simule(X = exampleData , 0.05, 1, covType = "cov", FALSE)
