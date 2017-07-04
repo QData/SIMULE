@@ -21,10 +21,10 @@ The row number of the node to be investigated.
 }
 
 \value{
-neighbors, a list of length K, each element is a vector including row names of the neighbour nodes.
+neighbors, a length K list. Each element in the list is a vector including row names of the neighbour nodes for the index node.
 }
 \references{
-Beilun Wang, Ritambhara Singh and Yanjun Qi (2017).  A Constrained L1 Minimization Approach for Estimating Multiple Sparse Gaussian or Nonparanormal Graphical Models. <arXiv:1605.03468>
+Beilun Wang, Ritambhara Singh and Yanjun Qi (2017).  A Constrained L1 Minimization Approach for Estimating Multiple Sparse Gaussian or Nonparanormal Graphical Models. <http://link.springer.com/article/10.1007/s10994-017-5635-7>
 }
 \author{
 Beilun Wang}

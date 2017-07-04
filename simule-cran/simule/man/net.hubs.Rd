@@ -5,7 +5,7 @@
 Get degrees of most connected nodes.
 }
 \description{
-List the degrees of the most connected nodes in each class.
+List the degrees of the hub nodes in each class.
 }
 \usage{
 net.hubs(theta, nhubs = 10)
@@ -21,9 +21,9 @@ The number of hubs to be identified.
 }
 
 \value{
-hubs, a list of length K, each element is a vector of Length n hubs giving the degree of the most connected nodes of the corresponding class.}
+hubs, a length K list, each element is a vector of Length n hubs giving the degree of the most connected nodes of the corresponding class.}
 \references{
-Beilun Wang, Ritambhara Singh and Yanjun Qi (2017).  A Constrained L1 Minimization Approach for Estimating Multiple Sparse Gaussian or Nonparanormal Graphical Models. <arXiv:1605.03468>
+Beilun Wang, Ritambhara Singh and Yanjun Qi (2017).  A Constrained L1 Minimization Approach for Estimating Multiple Sparse Gaussian or Nonparanormal Graphical Models. <http://link.springer.com/article/10.1007/s10994-017-5635-7>
 }
 \author{
 Beilun Wang}

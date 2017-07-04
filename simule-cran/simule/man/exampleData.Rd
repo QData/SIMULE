@@ -2,10 +2,10 @@
 \alias{exampleData}
 \docType{data}
 \title{
-Toy simulated dataset including 2 tasks.
+A simulated toy dataset that includes 2 tasks.
 }
 \description{
-A dataset including data with 100 features and 2 different tasks of data, each with 200 observations.  The two tasks' data matrices are stored in a list with the detailed form below. The dataset is generated from two random graphs.
+A dataset with 100 features and 2 different tasks of data, each with 200 observations.  The two tasks' data matrices are stored in a list with the detailed form below. The dataset is generated from two random graphs.
 }
 \usage{data(exampleData)}
 \format{

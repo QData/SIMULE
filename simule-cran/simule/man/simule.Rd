@@ -18,7 +18,7 @@ Estimate multiple, related graphical models across multiple related datasets usi
 \item{Graphs}{A list of the estimated inverse covariance matrices.}
 }
 \details{
-  The SIMULE algorithm is a constrained l1 minimization method to detect shared and individual parts of multiple graphs explicitly.
+  The SIMULE algorithm is a constrained l1 minimization method to detect shared and individual parts of multiple graphs explicitly. It solves the following equation:
 \deqn{
 \hat{\Omega}^{(1)}_I, \hat{\Omega}^{(2)}_I, \dots, \hat{\Omega}^{(K)}_I, \hat{\Omega}_S = \min\limits_{\Omega^{(i)}_I,\Omega_S}\sum\limits_i ||\Omega^{(i)}_I||_1+ \epsilon K||\Omega_S||_1
 }
@@ -27,7 +27,7 @@ Subject to :
   ||\Sigma^{(i)}(\Omega^{(i)}_I + \Omega_S) - I||_{\infty} \le \lambda_{n},  i =
     1,\dots,K \nonumber
 }
-Please also see the equation (7) in our paper. The \eqn{\lambda} is the hyperparameter controlling the sparsity level of the matrices and it is the \code{lambda} in our function. The \eqn{\epsilon} is the hyperparameter controlling the differences between the shared pattern among graphs and the individual part of each graph. It is the \code{epsilon} parameter in our function and the default value is 1. For further details, please see our paper: http://link.springer.com/article/10.1007/s10994-017-5635-7
+Please also see the equation (7) in our paper. The \eqn{\lambda_n} is the hyperparameter controlling the sparsity level of the matrices and it is the \code{lambda} in our function. The \eqn{\epsilon} is the hyperparameter controlling the differences between the shared pattern among graphs and the individual part of each graph. It is the \code{epsilon} parameter in our function and the default value is 1. For further details, please see our paper: <http://link.springer.com/article/10.1007/s10994-017-5635-7>.
 }
 \author{
 Beilun Wang
