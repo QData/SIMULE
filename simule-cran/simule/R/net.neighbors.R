@@ -7,9 +7,7 @@ function(theta,index)
 	neighbors = list()
 	for(k in 1:K)
 	{
-		neighbor.indices = (theta[[k]][index,]!=0)
-		neighbor.indices[index] = FALSE
-		neighbors[[k]] = row.names(theta[[1]])[neighbor.indices]
+		neighbors[[k]] = which(theta[[k]][index,]!=0)
 	}
 	return(neighbors)
 }

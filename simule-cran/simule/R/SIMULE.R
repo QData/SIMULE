@@ -27,7 +27,7 @@
 }
 
 # (N)SIMULE implementation
-simule <- function(X, lambda, epsilon, covType = "cov",parallel = FALSE ){
+simule <- function(X, lambda, epsilon = 1, covType = "cov",parallel = FALSE ){
     #get number of tasks
     N = length(X)
     #get the cov/cor matrices
@@ -122,11 +122,40 @@ simule <- function(X, lambda, epsilon, covType = "cov",parallel = FALSE ){
 }
 
 plot.simule <-
-  function(x,...)
+  function(x, type="graph", subID=NULL, index=NULL, ...)
   {
     .env = "environment: namespace:simule"
     #UseMethod("plot")
-    Graphs = x$Graphs
+    tmp = x$Graphs
+    Graphs = list()
+    p = dim(tmp[[1]])[1]
+    if (type == "share"){
+      Graphs[[1]] = tmp[[1]] & tmp[[2]]
+      for (i in 2:length(tmp)){
+        Graphs[[1]] = Graphs[[1]] & tmp[[i]]
+      }
+      Graphs[[1]] = matrix(as.numeric(Graphs[[1]]), p, p)
+    }
+    if (type == "sub"){
+      temp = tmp[[1]] & tmp[[2]]
+      for (i in 2:length(tmp)){
+        temp = temp & tmp[[i]]
+      }
+      temp = !temp
+      temp = matrix(as.numeric(temp), p, p)
+      Graphs[[1]] = tmp[[subID]] * temp
+    }
+    if (type == "graph"){
+      Graphs = tmp
+    }
+    if (type == "neighbor"){
+      id = matrix(0,p,p)
+      id[index,] = rep(1,p)
+      id[,index] = rep(1,p)
+      for (i in 1:length(tmp)){
+        Graphs[[i]] = tmp[[i]] * id
+      }
+    }
     K=length(Graphs)
     adj = .make.adj.matrix(Graphs)
     diag(adj)=0
