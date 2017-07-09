@@ -5,7 +5,7 @@
 Shared and Individual parts of MULtiple graphs Explicitly}
 \description{
 This is an R implementation of a constrained l1 minimization approach for estimating multiple Sparse Gaussian or Nonparanormal Graphical Models (SIMULE). The SIMULE algorithm can be used to estimate multiple related precision matrices. For instance, it can identify context-specific gene networks from multi-context gene expression datasets. By performing data-driven network inference from high-dimensional and heterogeneous datasets, this tool can help users effectively translate aggregated data into knowledge that take the form of graphs among entities.
-This package includes two graphical model options: Gaussian Graphical model and nonparanormal graphical model. The first model assumes that each dataset follows the Gaussian Distribution. The second one assumes that each dataset is nonparanormal distributed. It also provides two computational options: the multi-threading implementation and the single-threading implementation.
+This package includes two graphical model options: Gaussian Graphical model and nonparanormal graphical model. The first model assumes that each dataset follows the Gaussian Distribution. The second one assumes that each dataset is nonparanormal distributed. This package provides two computational options: the multi-threading implementation and the single-threading implementation. Please run demo(simule) to learn the basic functions provided by this package.  For further details, please read the original paper:  <http://link.springer.com/article/10.1007/s10994-017-5635-7>.
 }
 \details{
 \tabular{ll}{

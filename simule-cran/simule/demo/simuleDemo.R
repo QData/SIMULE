@@ -1,6 +1,11 @@
 
 pause <- function() {}
 
+### load the simule library
+library(simule)
+
+pause <- function() {}
+
 ### load the example data
 
 data(exampleData)
@@ -8,7 +13,7 @@ exampleData
 
 pause()
 
-### run simule algorithm to estimate two sparse precision matrices from example data
+### run simule algorithm to estimate two sparse precision matrices from the exampleData
 
 results = simule(X = exampleData , 0.05, 1, covType = "cov", TRUE)
 results
@@ -67,3 +72,24 @@ neighbors = net.neighbors(results$Graphs,index=50)
 neighbors
 
 pause()
+
+### plot the estimated graphs by simule
+plot.simule(results)
+
+
+pause()
+
+### plot the shared subgraph that is shared by all estimated graphs by simule
+plot.simule(results, type="share")
+
+
+pause()
+
+### plot the estimated task-specific graph whose task index="sub" by simule
+plot.simule(results, type="sub", subID=1)
+
+
+pause()
+
+### plot the estimated subgraphs that is about a specific node
+plot.simule(results, type="neighbor", index=50)

@@ -2,10 +2,10 @@
 \alias{net.neighbors}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Get neighbors of a node in the network
+Get neighbors of a node in each graph in the input list of multiple graphs
 }
 \description{
-For each class, returns the name of neighbour nodes connected to a given node.
+For each graph in the input list of multiple graphs, returns the name of neighbor nodes connected to a given node.
 }
 \usage{
 net.neighbors(theta, index)
@@ -13,7 +13,7 @@ net.neighbors(theta, index)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{theta}{
-A list of pXp matrices, each element represents an estimated sparse inverse covariance matrix.  (For example, the result of SIMULE.)
+  An input list of multiple graphs. Each graph is represented as a pXp matrix. (For example, the result of the SIMULE algorithm: a list of pXp matrices in which each matrix represents an estimated sparse inverse covariance matrix.)
 }
   \item{index}{
 The row number of the node to be investigated.
@@ -21,7 +21,7 @@ The row number of the node to be investigated.
 }
 
 \value{
-neighbors, a length K list. Each element in the list is a vector including row names of the neighbour nodes for the index node.
+neighbors, a length K list. Each element in the list is a vector including row names of the neighbor nodes for the index node in each graph in the input list of multiple graphs.
 }
 \references{
 Beilun Wang, Ritambhara Singh and Yanjun Qi (2017).  A Constrained L1 Minimization Approach for Estimating Multiple Sparse Gaussian or Nonparanormal Graphical Models. <http://link.springer.com/article/10.1007/s10994-017-5635-7>
@@ -31,7 +31,7 @@ Beilun Wang}
 
 \examples{
 \dontrun{
-## load an example dataset with K=2 tasks, p=100 features, and n=200 samples per task:
+## load an example multi-task dataset with K=2 tasks, p=100 features, and n=200 samples per task:
 data(exampleData)
 ##run simule
 result = simule(X = exampleData , 0.05, 1, covType = "cov", FALSE)

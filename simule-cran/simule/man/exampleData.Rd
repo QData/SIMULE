@@ -2,15 +2,15 @@
 \alias{exampleData}
 \docType{data}
 \title{
-A simulated toy dataset that includes 2 tasks.
+A simulated toy dataset that includes 2 data matrices (from 2 related tasks).
 }
 \description{
-A dataset with 100 features and 2 different tasks of data, each with 200 observations.  The two tasks' data matrices are stored in a list with the detailed form below. The dataset is generated from two random graphs.
+A simulated toy dataset that includes 2 data matrices (from 2 related tasks). Each data matrix is about 100 features observed in 200 samples. The two data matrices are about exactly the same set of 100 features. This multi-task dataset is generated from two related random graphs. Please run demo(simule) to learn the basic functions provided by this package.  For further details, please read the original paper:  <http://link.springer.com/article/10.1007/s10994-017-5635-7>.
 }
 \usage{data(exampleData)}
 \format{
   The format is:
-List of 2
+List of 2 matrices
  $ : num [1:200, 1:100] -0.0982 -0.2417 -1.704 0.4 ...
   ..- attr(*, "dimnames")=List of 2
   .. ..$ : NULL

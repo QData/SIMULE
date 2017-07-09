@@ -5,20 +5,20 @@
 simule(X, lambda, epsilon = 1, covType = "cov", parallel = FALSE)
 }
 \arguments{
-\item{X}{A List of input matrices. They can be data matrices or covariance/correlation matrices. If every matrix in the X is a symmetric matrix, the matrices are assumed to be covariance/correlation matrices.}
+\item{X}{A List of input matrices. They can be data matrices or covariance/correlation matrices. If every matrix in the X is a symmetric matrix, the matrices are assumed to be covariance/correlation matrices. More details at <https://github.com/QData/SIMULE>}
 \item{lambda}{A positive number. The hyperparameter controls the sparsity level of the matrices. The \eqn{\lambda} in the details.}
 \item{epsilon}{A positive number. The hyperparameter controls the differences between the shared pattern among graphs and the individual part of each graph. The \eqn{\epsilon} in the details. If epsilon becomes larger, the generated graphs will be more similar to each other. The default value is 1, which means that we set the same weights to the shared pattern among graphs and the individual part of each graph.}
-\item{covType}{A parameter to decide which Graphical model we choose. If covType = "cov", it means that we estimate multiple Gaussian Graphical models. In another word, we assume that the \eqn{\Sigma^{(i)}} in the details are estimated by the sample covariance matrices. If covType = "cor", it means that we estimate multiple nonparanormal Graphical models. In another word, we assume that the \eqn{\Sigma^{(i)}} in the details are estimated by the kendall's tau correlation matrices.}
-\item{parallel}{A boolean. It is the parameter to decide that the package uses the multithreading architecture or not.}
+\item{covType}{A parameter to decide which Graphical model we choose to estimate from the input data. If covType = "cov", it means that we estimate multiple sparse Gaussian Graphical models. This option assumes that we calculate (when input X represents data directly) or use (when X elements are symmetric representing covariance matrices) the sample covariance matrices as input to the simule algorithm. If covType = "kendall", it means that we estimate multiple nonparanormal Graphical models. This option assumes that we calculate (when input X represents data directly) or use (when X elements are symmetric representing correlation matrices) the kendall's tau correlation matrices as input to the simule algorithm.}
+\item{parallel}{A boolean. This parameter decides if the package will use the multithreading architecture or not.}
 }
 \description{
-Estimate multiple, related graphical models across multiple related datasets using the SIMULE algorithm.
+Estimate multiple, related sparse Gaussian or Nonparanormal graphical models from multiple related datasets using the SIMULE algorithm. Please run demo(simule) to learn the basic functions provided by this package.  For further details, please read the original paper:  <http://link.springer.com/article/10.1007/s10994-017-5635-7>.
 }
 \value{
-\item{Graphs}{A list of the estimated inverse covariance matrices.}
+\item{Graphs}{A list of the estimated inverse covariance/correlation matrices.}
 }
 \details{
-  The SIMULE algorithm is a constrained l1 minimization method to detect shared and individual parts of multiple graphs explicitly. It solves the following equation:
+  The SIMULE algorithm is a constrained l1 minimization method that can detect both the shared and the task-specific parts of multiple graphs explicitly from data (through jointly estimating multiple sparse Gaussian graphical models or Nonparanormal graphical models). It solves the following equation:
 \deqn{
 \hat{\Omega}^{(1)}_I, \hat{\Omega}^{(2)}_I, \dots, \hat{\Omega}^{(K)}_I, \hat{\Omega}_S = \min\limits_{\Omega^{(i)}_I,\Omega_S}\sum\limits_i ||\Omega^{(i)}_I||_1+ \epsilon K||\Omega_S||_1
 }
@@ -38,7 +38,7 @@ Beilun Wang, Ritambhara Singh, Yanjun Qi (2017).  A constrained L1 minimization 
 \examples{
 \dontrun{
 data(exampleData)
-simule(X = exampleData , 0.05, 1, covType = "cov", TRUE)
+results = simule(X = exampleData , 0.05, 1, covType = "cov", TRUE)
 plot.simule(results)
 plot.simule(results, type="share")
 plot.simule(results, type="sub", subID=1)

@@ -33,7 +33,8 @@ simule <- function(X, lambda, epsilon = 1, covType = "cov",parallel = FALSE ){
     #get the cov/cor matrices
     if (isSymmetric(X[[1]]) == FALSE){
       try(if (covType %in% c("cov","kendall") == FALSE) stop("The cov/cor type you specifies is not include in this package. Please use your own function to obtain the list of cov/cor and use them as the input of simule()"))
-      if (covType == "cov"){
+      if (covType == "cov")
+      {
         for (i in 1:N){
           X[[i]] = cov(X[[i]])
         }
