@@ -1,6 +1,6 @@
 Package: simule
 Version: 1.1.1
-Date: 2017-05-31
+Date: 2017-07-10
 Title: A Constrained L1 Minimization Approach for Estimating Multiple Sparse Gaussian or Nonparanormal Graphical Models
 Authors@R: c(person("Beilun", "Wang", role = c("aut", "cre"), email = "bw4mw@virginia.edu"), person("Yanjun", "Qi", role = "aut", email = "yanjun@virginia.edu"))
 Author: Beilun Wang [aut, cre], Yanjun Qi [aut]
