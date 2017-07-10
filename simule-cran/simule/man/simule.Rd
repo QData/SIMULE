@@ -16,6 +16,7 @@ Estimate multiple, related sparse Gaussian or Nonparanormal graphical models fro
 }
 \value{
 \item{Graphs}{A list of the estimated inverse covariance/correlation matrices.}
+\item{share}{The share graph among multiple tasks.}
 }
 \details{
   The SIMULE algorithm is a constrained l1 minimization method that can detect both the shared and the task-specific parts of multiple graphs explicitly from data (through jointly estimating multiple sparse Gaussian graphical models or Nonparanormal graphical models). It solves the following equation:

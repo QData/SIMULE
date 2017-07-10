@@ -117,7 +117,20 @@ simule <- function(X, lambda, epsilon = 1, covType = "cov",parallel = FALSE ){
             }
         }
     }
-    out = list(Graphs = Graphs)
+    share = 1/(epsilon * N) * xt[(1 + N * p):((N + 1) * p),]
+    for(j in 1:p){
+      for(k in j:p){
+        if (abs(share[j,k]) < abs(share[k,j])){
+          share[j,k] = share[j,k]
+          share[k,j] = share[j,k]
+        }
+        else{
+          share[j,k] = share[k,j]
+          share[k,j] = share[k,j]
+        }
+      }
+    }
+    out = list(Graphs = Graphs, share = share)
     class(out) = "simule"
     return(out)
 }
@@ -131,20 +144,10 @@ plot.simule <-
     Graphs = list()
     p = dim(tmp[[1]])[1]
     if (type == "share"){
-      Graphs[[1]] = tmp[[1]] & tmp[[2]]
-      for (i in 2:length(tmp)){
-        Graphs[[1]] = Graphs[[1]] & tmp[[i]]
-      }
-      Graphs[[1]] = matrix(as.numeric(Graphs[[1]]), p, p)
+      Graphs[[1]] = x$share
     }
     if (type == "sub"){
-      temp = tmp[[1]] & tmp[[2]]
-      for (i in 2:length(tmp)){
-        temp = temp & tmp[[i]]
-      }
-      temp = !temp
-      temp = matrix(as.numeric(temp), p, p)
-      Graphs[[1]] = tmp[[subID]] * temp
+      Graphs[[1]] = tmp[[subID]] - x$share
     }
     if (type == "graph"){
       Graphs = tmp

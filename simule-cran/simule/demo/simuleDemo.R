@@ -17,21 +17,7 @@ pause()
 
 results = simule(X = exampleData , 0.05, 1, covType = "cov", TRUE)
 results
-plot.simule(results)
 
-pause()
-
-plot.simule(results, type="share")
-
-pause()
-
-plot.simule(results, type="sub", subID=1)
-
-pause()
-
-plot.simule(results, type="neighbor", index=50)
-
-pause()
 
 ### Output the top-10 hubs in each identified graph.
 
