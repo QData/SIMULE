@@ -16,7 +16,13 @@ This function plots either the shared graph, the task-specific networks, the net
   }
   \item{type}{
     Plotting type. This argument defines which type of network(s) to plot. There are four options:
-    "graph": plot the networks, "share": plot the shared graph, "sub": plot subject-specific networks, and "neighbor": plot the neighborhood networks for a given node.
+    "graph": plot the networks. The different colors represent the different graphs.
+
+    "share": plot the shared graph.
+
+    "sub": plot subject-specific networks.
+
+    "neighbor": plot the neighborhood networks for a given node. The different colors represent the different graphs.
   }
   \item{subID}{
     If \code{type="sub"}, \code{subID} indicates to plot the task-specific network for the task whose index == subID.

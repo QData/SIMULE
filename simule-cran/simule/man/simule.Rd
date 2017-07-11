@@ -6,9 +6,13 @@ simule(X, lambda, epsilon = 1, covType = "cov", parallel = FALSE)
 }
 \arguments{
 \item{X}{A List of input matrices. They can be data matrices or covariance/correlation matrices. If every matrix in the X is a symmetric matrix, the matrices are assumed to be covariance/correlation matrices. More details at <https://github.com/QData/SIMULE>}
-\item{lambda}{A positive number. The hyperparameter controls the sparsity level of the matrices. The \eqn{\lambda_n} in the details.}
-\item{epsilon}{A positive number. The hyperparameter controls the differences between the shared pattern among graphs and the individual part of each graph. The \eqn{\epsilon} in the details. If epsilon becomes larger, the generated graphs will be more similar to each other. The default value is 1, which means that we set the same weights to the shared pattern among graphs and the individual part of each graph.}
-\item{covType}{A parameter to decide which Graphical model we choose to estimate from the input data. If covType = "cov", it means that we estimate multiple sparse Gaussian Graphical models. This option assumes that we calculate (when input X represents data directly) or use (when X elements are symmetric representing covariance matrices) the sample covariance matrices as input to the simule algorithm. If covType = "kendall", it means that we estimate multiple nonparanormal Graphical models. This option assumes that we calculate (when input X represents data directly) or use (when X elements are symmetric representing correlation matrices) the kendall's tau correlation matrices as input to the simule algorithm.}
+\item{lambda}{A positive number. The hyperparameter controls the sparsity level of the matrices. The \eqn{\lambda_n} in the following section: Details.}
+\item{epsilon}{A positive number. The hyperparameter controls the differences between the shared pattern among graphs and the individual part of each graph. The \eqn{\epsilon} in the following section: Details. If epsilon becomes larger, the generated graphs will be more similar to each other. The default value is 1, which means that we set the same weights to the shared pattern among graphs and the individual part of each graph.}
+\item{covType}{A parameter to decide which Graphical model we choose to estimate from the input data.
+
+If covType = "cov", it means that we estimate multiple sparse Gaussian Graphical models. This option assumes that we calculate (when input X represents data directly) or use (when X elements are symmetric representing covariance matrices) the sample covariance matrices as input to the simule algorithm.
+
+If covType = "kendall", it means that we estimate multiple nonparanormal Graphical models. This option assumes that we calculate (when input X represents data directly) or use (when X elements are symmetric representing correlation matrices) the kendall's tau correlation matrices as input to the simule algorithm.}
 \item{parallel}{A boolean. This parameter decides if the package will use the multithreading architecture or not.}
 }
 \description{
