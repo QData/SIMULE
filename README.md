@@ -5,7 +5,7 @@ This is an R implementation of the [SIMULE](https://arxiv.org/abs/1605.03468) al
 "A constrained L1 minimization approach for estimating multiple Sparse Gaussian or Nonparanormal Graphical Models",
 accepted by Machine Learning @ [URL](https://link.springer.com/article/10.1007/s10994-017-5635-7)
 
-Please run demo(simule) to learn the basic functions provided by this package. For further details, please read the original paper @ [URL](http://link.springer.com/article/10.1007/s10994-017-5635-7) or read the R-package Manual: @ [URL](https://cran.r-project.org/web/packages/simule/simule.pdf)
+Please run demo(simuleDemo) to learn the basic functions provided by this package. For further details, please read the original paper @ [URL](http://link.springer.com/article/10.1007/s10994-017-5635-7) or read the R-package Manual: @ [URL](https://cran.r-project.org/web/packages/simule/simule.pdf)
 
 ## Dependency
 It depends on the following existing packages. To use them, simply
