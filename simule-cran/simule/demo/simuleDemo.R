@@ -6,6 +6,38 @@ library(simule)
 
 pause <- function() {}
 
+### load the cancer data
+data(cancer)
+X = list(as.matrix(cancer[[1]][which(cancer[[2]] == "not"),]), as.matrix(cancer[[1]][which(cancer[[2]] == "pcr"),]))
+
+### run the simule
+results = simule(X, 0.05, 1, covType = "cov", TRUE)
+results
+
+pause()
+
+### plot the estimated graphs by simule
+plot.simule(results)
+
+
+pause()
+
+### plot the shared subgraph that is shared by all estimated graphs by simule
+plot.simule(results, type="share")
+
+
+pause()
+
+### plot the estimated task-specific graph whose task index="sub" by simule
+plot.simule(results, type="sub", subID=1)
+
+
+pause()
+
+### plot the estimated subgraphs that is about a specific node
+plot.simule(results, type="neighbor", index=15)
+
+
 ### load the example data
 
 data(exampleData)
