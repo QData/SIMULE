@@ -28,6 +28,13 @@
 
 # (N)SIMULE implementation
 simule <- function(X, lambda, epsilon = 1, covType = "cov",parallel = FALSE ){
+
+    if (is.data.frame(X[[1]])){
+      for (i in 1:(length(X))){
+        X[[i]] = as.matrix(X[[i]])
+      }
+    }
+
     #get number of tasks
     N = length(X)
     #get the cov/cor matrices
