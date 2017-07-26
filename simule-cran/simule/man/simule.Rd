@@ -16,7 +16,7 @@ If covType = "kendall", it means that we estimate multiple nonparanormal Graphic
 \item{parallel}{A boolean. This parameter decides if the package will use the multithreading architecture or not.}
 }
 \description{
-Estimate multiple, related sparse Gaussian or Nonparanormal graphical models from multiple related datasets using the SIMULE algorithm. Please run demo(simuleDemo) to learn the basic functions provided by this package.  For further details, please read the original paper:  Beilun Wang, Ritambhara Singh, Yanjun Qi (2017)  <DOI:10.1007/s10994-017-5635-7>.
+Estimate multiple, related sparse Gaussian or Nonparanormal graphical models from multiple related datasets using the SIMULE algorithm. Please run demo(simule) to learn the basic functions provided by this package.  For further details, please read the original paper:  Beilun Wang, Ritambhara Singh, Yanjun Qi (2017)  <DOI:10.1007/s10994-017-5635-7>.
 }
 \value{
 \item{Graphs}{A list of the estimated inverse covariance/correlation matrices.}

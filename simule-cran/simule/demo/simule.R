@@ -38,7 +38,7 @@ pause()
 plot.simule(results, type="neighbor", index=15)
 
 
-### load the example data
+### load the  example data (larger p)
 
 data(exampleData)
 exampleData
