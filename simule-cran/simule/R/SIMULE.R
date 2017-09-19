@@ -18,8 +18,8 @@
     b1 = lambda - e
     b2 =  lambda + e
     f.con = rbind(-diag(2 * q), con1, -con1)
-    f.dir = rep("<=", 4 * q)
     f.rhs = c(rep(0, 2 * q), b1, b2)
+    f.dir = rep("<=", length(f.rhs))
     lp.out = lp("min", f.obj, f.con, f.dir, f.rhs)
     beta = lp.out$solution[1:q] - lp.out$solution[(q + 1):(2 * q)]
     if (lp.out$status == 2) warning("No feasible solution!  Try a larger tuning parameter!")
@@ -63,7 +63,7 @@ simule <- function(X, lambda, epsilon = 1, covType = "cov",parallel = FALSE ){
     for(i in 2:N){
         A = cbind(A,Z)
     }
-    A = cbind(A,(1/N)*X[[1]])
+    A = cbind(A,(1/(epsilon * N))*X[[1]])
     for(i in 2:N){
         temp = Z
         for(j in 2:N){
