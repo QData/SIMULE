@@ -7,6 +7,8 @@ accepted by Machine Learning @ [URL](https://link.springer.com/article/10.1007/s
 
 Please run demo(simuleDemo) to learn the basic functions provided by this package. For further details, please read the original paper @ [URL](http://link.springer.com/article/10.1007/s10994-017-5635-7) or read the R-package Manual: @ [URL](https://cran.r-project.org/web/packages/simule/simule.pdf)
 
++ Presentation @ [URL](https://github.com/QData/SIMULE/blob/master/SIMULE-talk.pdf)
+
 ## Dependency
 It depends on the following existing packages. To use them, simply
 ```r
