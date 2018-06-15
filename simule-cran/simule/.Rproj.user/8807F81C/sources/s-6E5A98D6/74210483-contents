@@ -1,0 +1,79 @@
+library(neurobase)
+
+setwd("C:/Users/Karen Chen/Desktop")
+
+test = readnii("sub-Caltech0051456_ses-1_mask.nii.gz")
+
+max(test)
+
+data = readnii("Caltech_0051457_alff.nii.gz")
+
+atlas = readnii("aal_roi_atlas.nii.gz")
+
+unique(data)
+
+datadata = data@.Data
+
+unique(datadata)
+
+datadata = as.matrix(datadata)
+
+unique(datadata)
+
+mean(datadata)
+
+max(datadata)
+
+sd(datadata)
+
+atlasdata = as.matrix(atlas@.Data)
+
+unique(atlasdata)
+
+
+library(oro.nifti)
+
+data_masked = mask_img(data, )
+
+ortho2(data_masked)
+
+ortho2(data)
+
+library('brainKCCA')
+
+#It will take more than 3 min to run
+filePath <- tempdir()
+#the nii.gz fMRI imaging file is created (toy example)
+oro.nifti::writeNIfTI(brainKCCA::input_img, paste(filePath, "/", "temp", sep=""))
+#read fMRI data
+testcase1 <- nii2RData(niiFile1 = "temp", resolution = "3mm", imgPath = filePath)
+result1<-permkCCA_multipleRegion(imageDat = testcase1, region = c(1,5,10))
+summary_result1 <- summary_kcca(kcca_object=result1, saveFormat = "excel")
+write.csv(summary_result1, paste(filePath, "/", "temp.csv", sep=""))
+summary_data <- meanConnection(path = filePath, threshold=0.25)
+multipleRegion_plot(summary_data, view = "SL", significance=NA)
+
+setwd("C:/Users/Karen Chen/Downloads")
+braintemplate = readnii("MNI152_T1_1mm_brain.nii")
+braintemplatedata = as.matrix(braintemplate@.Data)
+
+ortho2(braintemplate)
+
+misc3d::contour3d(braintemplate, level = 4500,alpha = 0.2, draw = TRUE,add=TRUE)
+
+library("plotly")
+
+stuff = braintemplate@.Data
+braintemplatedataframe=data.frame(stuff)
+plot_ly(type= 'surface', z = ~volcano)
+
+plot_ly(tyep= 'scatter3d', x = c( 9, 8, 5, 1 ) , y = c( 1, 2, 4, 8 ) , z = c( 11, 8, 15, 3 ) , mode = 'lines' )
+
+misc3d::slices3d(braintemplate)
+install.packages('tkrplot
+                 ')
+
+
+misc3d::contour3d(data, level = 100,alpha = 0.2, draw = TRUE,add=TRUE)
+
+

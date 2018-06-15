@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1529091678681.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "1|47|26|0|\n29|82|145|0|\n149|3|181|2|\n",
+    "hash" : "1062988296",
+    "id" : "2F23EA1D",
+    "lastKnownWriteTime" : 1527004266,
+    "last_content_update" : 1529091861500,
+    "path" : "E:/Github/Papers-sGGM/Zhaoyang/simule/R/wSIMULE.R",
+    "project_path" : "R/wSIMULE.R",
+    "properties" : {
+        "cursorPosition" : "147,0",
+        "scrollLine" : "28"
+    },
+    "relative_order" : 8,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

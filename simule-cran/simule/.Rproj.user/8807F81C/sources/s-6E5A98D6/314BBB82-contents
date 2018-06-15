@@ -1,0 +1,185 @@
+### precision (graph generator test)
+{
+  graphics.off()
+  par(mfrow=c(3,3))
+
+
+  g = simulateGraph()
+  adj = make.adj.matrix(list(g[[3]]))
+  diag(adj)=0
+  gadjstd = graph_from_adjacency_matrix(adj,mode="upper",weighted=TRUE)
+  graphlayout = layout_nicely(gadj,dim=2)
+
+  {
+  plot.igraph(gadjstd,layout = graphlayout, main = "shared")
+
+
+  for (i in 1:2){
+
+    adj = make.adj.matrix(list(g[[i]]))
+    diag(adj)=0
+    gadj = graph_from_adjacency_matrix(adj,mode="upper",weighted=TRUE)
+    gadj = difference(gadj, gadjstd)
+    #E(gadj)$color = get.edge.attribute(gadj,"weight")
+
+    plot.igraph(gadj,layout = graphlayout, main = paste("sub",i))
+  }
+
+  for (i in 1:2){
+
+    adj = make.adj.matrix(list(g[[i]]))
+    diag(adj)=0
+    gadj = graph_from_adjacency_matrix(adj,mode="upper",weighted=TRUE)
+    #E(gadj)$color = get.edge.attribute(gadj,"weight")
+
+    plot.igraph(gadj,layout = graphlayout, main = paste("individual", i))
+  }
+  }
+
+}
+
+## create random graphs ([[1]] and [[2]] are individual graphs (including shared), [[3]] is the shared graph)
+{
+g = simulateGraph(s = 0.01, ss = 0.1)
+
+{
+  invg <- solve(g[[1]])
+  g1list = mvrnorm(n = 500, matrix(0, 1, 20), invg, tol = 1e-6, empirical = FALSE, EISPACK = FALSE)
+}
+
+{
+  invg <- solve(g[[2]])
+  g2list = mvrnorm(n = 500, matrix(0, 1, 20), invg, tol = 1e-6, empirical = FALSE, EISPACK = FALSE)
+}
+
+### plotting the simulated graph from previous g generation step
+g_s0.01_ss0.1 = g
+
+#save(g_s0.01_ss0.1, file = "g_s0.01_ss0.1.rda")
+
+datalist = list(g1list,g2list)
+exampleData = datalist
+
+testresults = simule(datalist, 0.15, 0.35, covType = "cov", TRUE)
+#save(exampleData, file = "exampleData.rda")
+
+plottestdatacomparsion(graph = g, simuleresult = testresults)
+}
+
+### for comparsion plotting
+plottestdatacomparsion <- function(graph = NULL,  simuleresult = NULL){
+{
+  graphics.off()
+  par(mfrow=c(3,3))
+
+  adj = make.adj.matrix(list(g[[3]]))
+  diag(adj)=0
+  gadjstd = graph_from_adjacency_matrix(adj,mode="upper",weighted=TRUE)
+  ## graphlayout from originally simulated graph
+  graphlayout = layout_nicely(gadjstd,dim=2)
+
+
+
+  plot.simule(testresults, option = "2D", type="graph", graphlayout = graphlayout)
+
+  plot.simule(testresults, option = "2D", type="share", graphlayout = graphlayout)
+
+  plot.simule(testresults, option = "2D", type="sub", subID=1, graphlayout = graphlayout)
+
+  plot.simule(testresults, option = "2D", type="sub", subID=2, graphlayout = graphlayout)
+
+
+
+
+  {
+    plot.igraph(gadjstd,layout = graphlayout, main = "shared")
+
+
+    for (i in 1:2){
+
+      adj = make.adj.matrix(list(g[[i]]))
+      diag(adj)=0
+      gadj = graph_from_adjacency_matrix(adj,mode="upper",weighted=TRUE)
+      gadj = difference(gadj, gadjstd)
+      #E(gadj)$color = get.edge.attribute(gadj,"weight")
+
+      plot.igraph(gadj,layout = graphlayout, main = paste("sub - share",i))
+    }
+
+    for (i in 1:2){
+
+      adj = make.adj.matrix(list(g[[i]]))
+      diag(adj)=0
+      gadj = graph_from_adjacency_matrix(adj,mode="upper",weighted=TRUE)
+      #E(gadj)$color = get.edge.attribute(gadj,"weight")
+
+      plot.igraph(gadj,layout = graphlayout, main = paste("individual", i))
+    }
+  }
+
+}
+}
+
+### function to simulate multiple sparse graphs
+simulateGraph <- function(p = 20, N = 2, seedNum = 37, s = 0.1, ss = 0.1){
+  library(MASS)
+  #set parameters
+  # p = 1000
+  # N = 3
+  set.seed(seedNum)
+  graphs <- list()
+  I = diag(1,p,p)
+  graph_shared = matrix(1,p,p)
+  for (j in 1:p) {
+    for (k in j:p) {
+      graph_shared[j,k] = 0.5 * rbinom(1,1, ss)
+      graph_shared[k,j] = graph_shared[j,k]
+    }
+  }
+  #generate the simulate graph
+  #first one is the all off diag element has 0.1*N to be 0.5 and others to be 0
+  for (i in 1:N) {
+    graphs[[i]] <- matrix(1,p,p)
+  }
+  for (i in 1:N) {
+    for (j in 1:p) {
+      for (k in j:p) {
+        graphs[[i]][j,k] = 0.5 * rbinom(1,1, s * N)
+        graphs[[i]][k,j] = graphs[[i]][j,k]
+      }
+    }
+    graphs[[i]] = graphs[[i]] + graph_shared
+  }
+
+  for (i in 1:N) {
+    for (j in 1:p) {
+      graphs[[i]][j,j] = 1
+    }
+  }
+
+  for (i in 1:N) {
+    graphs[[i]] = (graphs[[i]] - I) + (abs(min(eigen(graphs[[i]] - I)$value)) + 1) * I
+  }
+  graphs[[N + 1]] = graph_shared
+  return(graphs)
+}
+
+### trash code
+{
+testshare = return.simule(testresults, option = "igraph", type="share")
+
+testsub1 = return.simule(testresults, option = "igraph", type="sub", subID = 1)
+
+testsub2 = return.simule(testresults, option = "igraph", type="sub", subID = 2)
+
+
+plot.igraph(difference(testsub1, testshare), layout = graphlayout, main = "testsub1 - testshare")
+
+plot.igraph(difference(testsub2, testshare), layout = graphlayout, main = "testsub2 - testshare")
+
+plot.simule(testresults, option = "2D", type="sub", subID=1, graphlayout = graphlayout)
+
+plot.simule(testresults, option = "2D", type="sub", subID=2, graphlayout = graphlayout)
+
+plot.simule(testresults, option = "2D", type="share", graphlayout = graphlayout)
+}

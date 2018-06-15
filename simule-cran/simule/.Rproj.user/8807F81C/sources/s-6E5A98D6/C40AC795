@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1529089136289.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "C40AC795",
+    "lastKnownWriteTime" : 1529092202,
+    "last_content_update" : 1529092202283,
+    "path" : "E:/Github/Papers-sGGM/Zhaoyang/simule/demo/simule.R",
+    "project_path" : "demo/simule.R",
+    "properties" : {
+        "cursorPosition" : "55,61",
+        "scrollLine" : "30",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

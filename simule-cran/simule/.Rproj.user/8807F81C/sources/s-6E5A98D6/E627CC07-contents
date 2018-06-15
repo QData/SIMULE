@@ -1,0 +1,230 @@
+
+
+### load the simule library
+library(simule)
+
+
+readline(prompt="Press [enter] to continue to the first demo: cancerdemo")
+
+
+  ## setup for cancer demo
+
+  ### load cancer data (cancer)
+  data(cancer)
+
+  ### create a list of cancer data (cancerlist)
+  cancerlist = list(as.matrix(cancer[[1]][which(cancer[[2]] == "not"),]),
+           as.matrix(cancer[[1]][which(cancer[[2]] == "pcr"),]))
+
+  ### run simule
+  cancerresult = simule(cancerlist, 0.2, 1, covType = "cov", TRUE)
+
+  ### obtain names for node labelling
+  cancername = colnames(cancer[[1]])
+
+  ### obtain graph for creating layout
+  cancergraph = return.simule(cancerresult, option = "igraph")
+
+  ### create a fixed layout on cancergraph for plotting =
+  cancerlayout = layout_nicely(cancergraph,dim=2)
+
+
+
+### individual plotting
+
+ ## reset plotting window and clear graphs
+ graphics.off()
+ par(mfrow=c(1,1))
+
+ ### plot the entire graph including share and all individual graphs (distinguished by edge color)
+ plot.simule(cancerresult, option = "2D", graphlabel = cancername, type="graph", graphlayout = cancerlayout)
+
+
+ ### plot the shared subgraph that is shared by all estimated graphs by simule
+ plot.simule(cancerresult, option = "2D", graphlabel = cancername, type="share", graphlayout = cancerlayout)
+
+
+ ### plot the estimated task-specific graph whose task index="sub" by simule
+ plot.simule(cancerresult, option = "2D", graphlabel = cancername, type="sub", subID=1, graphlayout = cancerlayout)
+
+
+ ### plot the estimated subgraphs that is about a specific node
+ plot.simule(cancerresult, option = "2D", graphlabel = cancername, type="sub", subID=2, graphlayout = cancerlayout)
+ #plot.simule(results, type="neighbor", index=15)
+
+
+
+
+### multiple plotting
+
+par(mfrow=c(2,2))
+
+{
+  plot.simule(cancerresult, option = "2D", graphlabel = cancername, type="graph", graphlayout = cancerlayout)
+
+  plot.simule(cancerresult, option = "2D", graphlabel = cancername, type="share", graphlayout = cancerlayout)
+
+  plot.simule(cancerresult, option = "2D", graphlabel = cancername, type="sub", subID=1, graphlayout = cancerlayout)
+
+  plot.simule(cancerresult, option = "2D", graphlabel = cancername, type="sub", subID=2, graphlayout = cancerlayout)
+}
+
+
+
+## reset window
+par(mfrow=c(1,1))
+
+readline(prompt="Press [enter] to continue to the second demo: exampledata demo")
+
+### load the example data (p=20)
+
+ data(exampleData)
+
+ ### run simule algorithm to estimate two sparse precision matrices from the exampleData
+ exampleresult = simule(X = exampleData , 0.15, 0.35, covType = "cov", TRUE)
+ examplegraph = return.simule(exampleresult, option = "igraph")
+ examplelayout = layout_nicely(examplegraph,dim=2)
+
+
+### individual plottings
+
+  par(mfrow=c(1,1))
+
+
+  plot.simule(exampleresult, option = "2D", graphlabel = NULL, type="graph", graphlayout = examplelayout)
+
+  plot.simule(exampleresult, option = "2D", graphlabel = NULL, type="share", graphlayout = examplelayout)
+
+  plot.simule(exampleresult, option = "2D", graphlabel = NULL, type="sub", subID=1, graphlayout = examplelayout)
+
+  plot.simule(exampleresult, option = "2D", graphlabel = NULL, type="sub", subID=2, graphlayout = examplelayout)
+
+
+### multiple plotting
+
+  par(mfrow=c(2,2))
+
+{
+  plot.simule(exampleresult, option = "2D", graphlabel = NULL, type="graph", graphlayout = examplelayout)
+
+  plot.simule(exampleresult, option = "2D", graphlabel = NULL, type="share", graphlayout = examplelayout)
+
+  plot.simule(exampleresult, option = "2D", graphlabel = NULL, type="sub", subID=1, graphlayout = examplelayout)
+
+  plot.simule(exampleresult, option = "2D", graphlabel = NULL, type="sub", subID=2, graphlayout = examplelayout)
+}
+
+### comparsion plotting
+
+  par(mfrow=c(2,3))
+  data(exampleDataGraph)
+
+  {
+  plot.simule(exampleresult, option = "2D", graphlabel = NULL, type="share", graphlayout = examplelayout)
+
+  plot.simule(exampleresult, option = "2D", graphlabel = NULL, type="sub", subID=1, graphlayout = examplelayout)
+
+  plot.simule(exampleresult, option = "2D", graphlabel = NULL, type="sub", subID=2, graphlayout = examplelayout)
+
+  plot.igraph(exampleDataGraph[[1]],layout = examplelayout, vertex.label.font=2,
+              vertex.shape="none",
+              vertex.label.color="gray40",
+              vertex.label.cex=.7, vertex.frame.color="white", vertex.size = 10 ,main = "shared_groundtruth")
+
+  plot.igraph(exampleDataGraph[[2]],layout = examplelayout,vertex.label.font=2,
+              vertex.shape="none",
+              vertex.label.color="gray40",
+              vertex.label.cex=.7, vertex.frame.color="white", vertex.size = 10 , main = "individual1_groundtruth")
+
+  plot.igraph(exampleDataGraph[[3]],layout = examplelayout,vertex.label.font=2,
+              vertex.shape="none",
+              vertex.label.color="gray40",
+              vertex.label.cex=.7, vertex.frame.color="white", vertex.size = 10 , main = "individual2_groundtruth")
+  }
+
+
+readline(prompt="Press [enter] to continue to the third demo: NIPS word count demo")
+
+### not yet polished
+
+
+ ### load the nips word count data
+ data(nip_37_data)
+ nipdataname = colnames(nip_37_data[[1]])
+ nipresult = simule(nip_37_data, lambda = 0.13, epsilon = 0.5, covType = "kendall", parallel = TRUE)
+
+ # return igraph object
+ nip_37_plot = return.simule(nipresult, option = "igraph")
+
+ # fix plot layout
+ nip_layout = layout_nicely(nip_37_plot)
+
+ ## individual plotting
+ par(mfrow=c(1,1))
+
+ # plot using a fixed layout (nip_layout)
+ plot.simule(nipresult, option = "2D", graphlabel = nipdataname, type="graph", graphlayout = nip_layout)
+
+ # plot the shared graph using fixed layout
+ plot.simule(nipresult, option = "2D",graphlabel = nipdataname, type="share", graphlayout = nip_layout)
+
+ # plot the individual graph 1 using fixed layout
+ plot.simule(nipresult, option = "2D",graphlabel = nipdataname, type="sub", subID=1, graphlayout = nip_layout)
+
+ # plot the individual graph 2 using fixed layout
+ plot.simule(nipresult,option = "2D", graphlabel = nipdataname, type="sub", subID=2, graphlayout = nip_layout)
+
+
+ par(mfrow=c(2,2))
+
+ {
+
+ plot.simule(nipresult, option = "2D", graphlabel = nipdataname, type="graph", graphlayout = nip_layout)
+
+ # plot the shared graph using fixed layout
+ plot.simule(nipresult, option = "2D",graphlabel = nipdataname, type="share", graphlayout = nip_layout)
+
+ # plot the individual graph 1 using fixed layout
+ plot.simule(nipresult, option = "2D",graphlabel = nipdataname, type="sub", subID=1, graphlayout = nip_layout)
+
+ # plot the individual graph 2 using fixed layout
+ plot.simule(nipresult,option = "2D", graphlabel = nipdataname, type="sub", subID=2, graphlayout = nip_layout)
+
+ }
+
+ readline(prompt="Press [enter] to continue to the fourth demo: brain demo")
+
+
+ ### brain demo currently not available
+ if (FALSE){
+
+library(brainGraph)
+
+data(niidatalist)
+
+data("aal116")
+
+dataname = aal116$name
+
+pause()
+
+
+results =  simule(niidatalist, lambda = 0.25, epsilon = 0.5, covType = "kendall", parallel = TRUE)
+
+pause()
+
+sharegraph = plot.simule(results, name = dataname, isreturn = TRUE, type="share")
+sub1 = plot.simule(results, name = dataname, isreturn = TRUE, type="sub", subID = 1)
+sub2 = plot.simule(results, name = dataname,  isreturn = TRUE, type="sub", subID = 2)
+sharegraphmade <- make_brainGraph(sharegraph, atlas = "aal116")
+sub1made <- make_brainGraph(sub1, atlas = "aal116")
+sub2made <- make_brainGraph(sub2, atlas = "aal116")
+
+pause()
+
+### please type in two graphs at a time (sharegraphmade / sub1made / sub2made)
+### hit plot -> entire graph
+
+plot_brainGraph_gui()
+
+}
