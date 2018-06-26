@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1529520659963.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "2|3|27|0|\n31|3|144|0|\n",
+    "hash" : "0",
+    "id" : "C59DEC61",
+    "lastKnownWriteTime" : 1530036133,
+    "last_content_update" : 1530036133599,
+    "path" : "E:/Github/SIMULE/simule-cran/simule/R/SIMULE.R",
+    "project_path" : "R/SIMULE.R",
+    "properties" : {
+        "cursorPosition" : "29,4",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

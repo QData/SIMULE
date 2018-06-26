@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1530040476708.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "F2A196CF",
+    "lastKnownWriteTime" : 1530040505,
+    "last_content_update" : 1530040505393,
+    "path" : "E:/Github/SIMULE/simule-cran/simule/demo/word.R",
+    "project_path" : "demo/word.R",
+    "properties" : {
+        "cursorPosition" : "50,37",
+        "scrollLine" : "23",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 7,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

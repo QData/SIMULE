@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1530036569033.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "5D5C0022",
+    "lastKnownWriteTime" : 1530036634,
+    "last_content_update" : 1530036634750,
+    "path" : "E:/Github/SIMULE/simule-cran/simule/demo/cancer.R",
+    "project_path" : "demo/cancer.R",
+    "properties" : {
+        "cursorPosition" : "29,0",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

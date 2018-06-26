@@ -1,0 +1,17 @@
+setwd("E:/Jamie_Info")
+advance = as.matrix(read.csv("AdvancedPD_Unilateral_Standardized_VBM_Qilab.csv"))
+control = as.matrix(read.csv("Control_Unilateral_Standardized_VBM_Qilab.csv"))
+early = as.matrix(read.csv("EarlyPD_Unilateral_Standardized_VBM_Qilab.csv"))
+coordinates = as.matrix(read.csv("MNI_Brain_Mask_Coordinates.csv"))
+advance = advance[,-1]
+control = control[,-1]
+early = early[,-1]
+coordinates = coordinates[,2:4]
+class(advance) <- "numeric"
+class(control) <- "numeric"
+class(early) <- "numeric"
+class(coordinates) <- "numeric"
+JamieData = list(control,early,advance)
+JamieCoordinates = coordinates
+save(JamieData, file = "JamieData.RData")
+save(JamieCoordinates, file = "JamieCoordinates.RData")

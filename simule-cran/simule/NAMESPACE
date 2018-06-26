@@ -1,7 +1,7 @@
 exportPattern("^[[:alpha:]]+")
 import("lpSolve","parallel","pcaPP","igraph")
 importFrom("stats", "cov")
-export(wsimule, plot.wsimule, simule, plot.simule, net.neighbors,net.hubs,net.edges,net.degree)
+export(wsimule, simule, plot.simule)
 S3method(plot,simule)
 S3method(plot,wsimule)
 importFrom("graphics", "plot")

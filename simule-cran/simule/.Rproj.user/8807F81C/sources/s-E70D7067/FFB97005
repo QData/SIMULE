@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1530040925030.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "FFB97005",
+    "lastKnownWriteTime" : 1530040993,
+    "last_content_update" : 1530040993358,
+    "path" : "E:/Github/SIMULE/simule-cran/simule/demo/wsimule.R",
+    "project_path" : "demo/wsimule.R",
+    "properties" : {
+        "cursorPosition" : "87,1",
+        "scrollLine" : "64",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 8,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

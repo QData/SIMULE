@@ -145,8 +145,3 @@ wsimule <- function(X, lambda, epsilon = 1, W, covType = "cov",parallel = FALSE 
   return(out)
 }
 
-plot.wsimule <-function(X)
-  {
-  .env = "environment: namespace:wsimule"
-
-}

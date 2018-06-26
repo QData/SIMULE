@@ -1,0 +1,568 @@
+#A simplex solver for linear programming problem in (N)SIMULE
+.linprogSPar <- function(i, Sigma, lambda)
+  {
+    # num of p * N
+    # pTimesN = nrow(Sigma)
+    # num of p * (N + 1)
+    # Get parameters
+    q = ncol(Sigma)
+    p = ncol(Sigma) - nrow(Sigma)
+    N = nrow(Sigma) / p
+    # Generate e_j
+    e = rep(0, p * N)
+    for(j in 1:N){
+        e[i + (j - 1) * p] = 1
+    }
+    # linear programming solution
+    f.obj = rep(1, 2 * q)
+    con1 = cbind(-Sigma, +Sigma)
+    b1 = lambda - e
+    b2 =  lambda + e
+    f.con = rbind(-diag(2 * q), con1, -con1)
+    f.rhs = c(rep(0, 2 * q), b1, b2)
+    f.dir = rep("<=", length(f.rhs))
+    lp.out = lp("min", f.obj, f.con, f.dir, f.rhs)
+    beta = lp.out$solution[1:q] - lp.out$solution[(q + 1):(2 * q)]
+    if (lp.out$status == 2) warning("No feasible solution!  Try a larger tuning parameter!")
+    return(beta)
+}
+
+# (N)SIMULE implementation
+simule <- function(X, lambda, epsilon = 1, covType = "cov",parallel = FALSE )
+  {
+
+    if (is.data.frame(X[[1]])){
+      for (i in 1:(length(X))){
+        X[[i]] = as.matrix(X[[i]])
+      }
+    }
+
+    #get number of tasks
+    N = length(X)
+    #get the cov/cor matrices
+    if (isSymmetric(X[[1]]) == FALSE){
+      try(if (covType %in% c("cov","kendall") == FALSE) stop("The cov/cor type you specifies is not include in this package. Please use your own function to obtain the list of cov/cor and use them as the input of simule()"))
+      if (covType == "cov")
+      {
+        for (i in 1:N){
+          X[[i]] = cov(X[[i]])
+        }
+      }
+      if (covType == "kendall"){
+        for(i in 1:N){
+          X[[i]] = cor.fk(X[[i]])
+        }
+      }
+    }
+    # initialize the parameters
+    Graphs = list()
+    p = ncol(X[[1]])
+    xt = matrix(0, (N + 1) * p, p)
+    I = diag(1, p, p)
+    Z = matrix(0, p, p)
+    # generate the condition matrix A
+    A = X[[1]]
+    for(i in 2:N){
+        A = cbind(A,Z)
+    }
+    A = cbind(A,(1/(epsilon * N))*X[[1]])
+    for(i in 2:N){
+        temp = Z
+        for(j in 2:N){
+            if (j == i){
+                temp = cbind(temp,X[[i]])
+            }
+            else{
+                temp = cbind(temp,Z)
+            }
+        }
+        temp = cbind(temp, 1/(epsilon * N) * X[[i]])
+        A = rbind(A, temp)
+    }
+    # define the function f for parallelization
+    f = function(x) .linprogSPar(x, A, lambda)
+
+    if(parallel == TRUE){ # parallel version
+    	# number of cores to collect,
+    	# default number is number cores in your machine - 1,
+    	# you can set your own number by changing this line.
+        no_cores = detectCores() - 1
+        cl = makeCluster(no_cores)
+        # declare variable and function names to the cluster
+        clusterExport(cl, list("f", "A", "lambda", ".linprogSPar", "lp"), envir = environment())
+        result = parLapply(cl, 1:p, f)
+        #print('Done!')
+        for (i in 1:p){
+            xt[,i] = result[[i]]
+        }
+        stopCluster(cl)
+    }else{ # single machine code
+        for (i in 1 : p){
+            xt[,i] = f(i)
+            if (i %% 10 == 0){
+                cat("=")
+                if(i %% 100 == 0){
+                    cat("+")
+                }
+            }
+        }
+        print("Done!")
+    }
+
+    for(i in 1:N){
+    	# combine the results from each column. (\hat{\Omega}_{tot}^1)
+        Graphs[[i]] = xt[(1 + (i-1) * p):(i * p),] + 1/(epsilon * N) * xt[(1 + N * p):((N + 1) * p),]
+        # make it be symmetric
+        for(j in 1:p){
+            for(k in j:p){
+                if (abs(Graphs[[i]][j,k]) < abs(Graphs[[i]][k,j])){
+                    Graphs[[i]][j,k] = Graphs[[i]][j,k]
+                    Graphs[[i]][k,j] = Graphs[[i]][j,k]
+                }
+                else{
+                    Graphs[[i]][j,k] = Graphs[[i]][k,j]
+                    Graphs[[i]][k,j] = Graphs[[i]][k,j]
+                }
+            }
+        }
+    }
+    share = 1/(epsilon * N) * xt[(1 + N * p):((N + 1) * p),]
+    for(j in 1:p){
+      for(k in j:p){
+        if (abs(share[j,k]) < abs(share[k,j])){
+          share[j,k] = share[j,k]
+          share[k,j] = share[j,k]
+        }
+        else{
+          share[j,k] = share[k,j]
+          share[k,j] = share[k,j]
+        }
+      }
+    }
+    out = list(Graphs = Graphs, share = share)
+    class(out) = "simule"
+    return(out)
+}
+
+plot.simule <-
+  function(simuleresult,
+           option = "2D",
+           graphlabel = NULL,
+           type = "task",
+           neighbouroption = "task",
+           subID = NULL,
+           index = NULL,
+           graphlayout = NULL,
+           ...)
+  {
+    subID = unique(subID)
+    index = unique(index)
+    .env = "environment: namespace:simule"
+    gadj = returngraph.simule(
+      simuleresult,
+      type = type,
+      neighbouroption = neighbouroption,
+      subID = subID,
+      index = index
+    )
+
+    graphlayout = .makelayout(gadj, option = option, graphlayout = graphlayout)
+
+    ## make title according to user input
+    title = .maketitle(
+      type = type,
+      subID = subID,
+      index = index,
+      graphlabel = graphlabel,
+      neighbouroption = neighbouroption
+    )
+
+    if (option == "2D") {
+      plot(
+        gadj,
+        layout = graphlayout,
+        vertex.label.font = 2,
+        vertex.shape = "none",
+        vertex.label.color = "gray40",
+        vertex.label = graphlabel,
+        vertex.label.cex = .7,
+        vertex.frame.color = "white",
+        vertex.size = 10 ,
+        main = title
+      )
+
+      legend(
+        "topleft" ,
+        legend = c(paste("task", c(
+          1:length(simuleresult$Graphs)
+        ), "specific"), "share"),
+        col = categorical_pal(length(simuleresult$Graphs) + 1),
+        pch = 16
+      )
+
+    }
+
+    else if (option == "3D") {
+      rglplot(
+        gadj,
+        layout = graphlayout,
+        vertex.label.font = 2,
+        vertex.shape = "none",
+        vertex.label.color = "gray40",
+        vertex.label = graphlabel,
+        vertex.label.cex = .7,
+        vertex.size = 10,
+        vertex.frame.color = "white",
+        main = title
+      )
+    }
+    else if (option == "interactive") {
+      tkplot(
+        gadj,
+        layout = graphlayout,
+        vertex.label.font = 2,
+        vertex.shape = "none",
+        vertex.label.color = "gray40",
+        vertex.label = graphlabel,
+        vertex.label.cex = .7,
+        vertex.size = 10,
+        vertex.frame.color = "white",
+        main = title
+      )
+    }
+    else {
+      stop("please specify a valid option")
+    }
+
+  }
+
+
+returngraph.simule <-
+  function(simuleresult,
+           type = "task",
+           neighbouroption = "task",
+           subID = NULL,
+           index = NULL) {
+    .env = "environment: namespace:simule"
+    adj = .make.adj.matrix(simuleresult$Graphs)
+    diag(adj) = 0
+    gadj = graph.adjacency(adj, mode = "upper", weighted = TRUE)
+
+    if (!is.null(E(gadj)$weight)) {
+      E(gadj)$color = E(gadj)$weight
+    }
+
+    K = length(simuleresult$Graphs)
+    if (type == "share") {
+      ### ignore subID and index
+      gadj = subgraph.edges(gadj, which(E(gadj)$weight == K + 1), delete.vertices = FALSE)
+    }
+
+    else if (type == "taskspecific") {
+      ### ignore index
+      if (0 %in% subID) {
+        stop("please specify valid task number(s)")
+      }
+      if (is.null(subID)) {
+        stop("please specify task number(s)")
+      }
+      if (!prod(subID %in% (1:K))) {
+        stop("please specify valid task number(s)")
+      }
+      gadj = subgraph.edges(gadj, which(E(gadj)$weight %in% subID), delete.vertices = FALSE)
+
+    }
+
+    else if (type == "task") {
+      if (!is.null(subID)) {
+        if (!prod(subID %in% (0:K))) {
+          stop("please specify valid task number(s)")
+        }
+        ### when subID = 0, gadj will be shared graph
+        ### when subID = others, gadj will be graph for task with subID (including shared part)
+        gadj = subgraph.edges(gadj, which(E(gadj)$weight %in% c(subID, K + 1)), delete.vertices = FALSE)
+      }
+      ### when subID is null, return all graphs
+    }
+
+    else if (type == "neighbour") {
+      if (!prod(index %in% (1:vcount(gadj)))) {
+        stop("please specify valid index number(s)")
+      }
+
+      gadj = subgraph.edges(gadj, unlist(incident_edges(gadj, index)) , delete.vertices = FALSE)
+      if (neighbouroption == "task") {
+        if (!is.null(subID)) {
+          if (!prod(subID %in% (0:K))) {
+            stop("please specify valid task number(s)")
+          }
+          gadj = subgraph.edges(gadj, which(E(gadj)$weight %in% c(subID, K + 1)), delete.vertices = FALSE)
+        }
+      }
+      else if (neighbouroption == "taskspecific") {
+        if (!prod(subID %in% (1:K))) {
+          stop("please specify valid task number(s)")
+        }
+        gadj = subgraph.edges(gadj, which(E(gadj)$weight %in% subID), delete.vertices = FALSE)
+      }
+      else {
+        stop("please specify a valid neighbouroption")
+      }
+
+    }
+
+    else {
+      stop("please specify a correct type")
+    }
+
+    return(gadj)
+  }
+
+
+if(FALSE){
+# a function to return either adjacency matrix or igraph of type user specified (entire graph / shared / individual / neighbor (zoom into one node) )
+return.simule <- function(x, option = "adjmatrix", type="graph", subID=NULL, index=NULL)
+{
+  .env = "environment: namespace:simule"
+  #UseMethod("plot")
+  tmp = x$Graphs
+  Graphs = list()
+
+  p = dim(tmp[[1]])[1]
+
+  if (type == "share"){
+    Graphs[[1]] = x$share
+  }
+
+
+  if (type == "sub"){
+    if (!is.null(subID))
+      {
+      if (subID == 0){
+        Graphs[[1]] = x$share
+      }
+      else {
+        Graphs[[1]] = tmp[[subID]] - x$share
+      }
+    }
+    else {
+      print("Please specify subID")
+      return(NA)
+    }
+  }
+
+
+
+  if (type == "graph"){
+    Graphs = tmp
+  }
+
+  ## can i make it zoom into multiple nodes
+  if (type == "neighbor"){
+
+
+    if (is.null(subID)){
+    id = matrix(0,p,p)
+    id[index,] = rep(1,p)
+    id[,index] = rep(1,p)
+    for (i in 1:length(tmp)){
+      Graphs[[i]] = tmp[[i]] * id
+    }
+    }
+
+
+    else {
+
+
+
+      if (subID == 0){
+      id = matrix(0,p,p)
+      id[index,] = rep(1,p)
+      id[,index] = rep(1,p)
+      for (i in 1:length(tmp)){
+        Graphs[[i]] = x$share * id
+      }
+      }
+
+
+
+      else {
+        id = matrix(0,p,p)
+        id[index,] = rep(1,p)
+        id[,index] = rep(1,p)
+        for (i in 1:length(tmp)){
+          Graphs[[i]] = (tmp[[subID]] - x$share) * id
+        }
+      }
+
+
+    }
+  }
+
+  K=length(Graphs)
+  adj = .make.adj.matrix(Graphs)
+  diag(adj)=0
+
+  if (option == "adjmatrix"){
+    return(adj)
+  }
+
+  if (option == "igraph"){
+
+
+  ### old code to
+  #colnames(adj) <- name
+  #rownames(adj) <- name
+  #gadj = graph_from_adjacency_matrix(adj,mode="upper",weighted=TRUE, add.colnames = 'name')
+
+
+  gadj = graph_from_adjacency_matrix(adj,mode="upper",weighted=TRUE)
+  #print(get.edge.attribute(gadj,"weight"))
+  E(gadj)$color = get.edge.attribute(gadj,"weight")
+  return(gadj)
+  }
+}
+}
+
+# make adjacency matrix
+.make.adj.matrix <-
+  function(theta, separate=FALSE)
+  {
+    K = length(theta)
+    adj = list()
+
+    if(separate)
+    {
+      for(k in 1:K)
+      {
+        adj[[k]] = (abs(theta[[k]])>1e-5)*1
+      }
+    }
+
+    if(!separate)
+    {
+      adj = 0*theta[[1]]
+      for(k in 1:K)
+      {
+        adj = adj+(abs(theta[[k]])>1e-5)*2^(k-1)
+      }
+    }
+
+    return(adj)
+  }
+
+.maketitle <-
+  function(type = "task",
+           subID = NULL,
+           index = NULL,
+           neighbouroption = "task",
+           graphlabel = NULL)
+  {
+    if (type == "share") {
+      return ("Shared Graph")
+    }
+
+    if (type == "taskspecific") {
+      temp = paste(as.character(subID), collapse = ", ")
+      return (paste("Task", temp, "Specific Graph"))
+    }
+
+    if (type == "task") {
+      if (is.null(subID)) {
+        return ("All Graphs")
+      }
+      else {
+        if (length(subID) == 1) {
+          if (subID == 0) {
+            return ("Shared Graph")
+          }
+          else{
+            return (paste("Task", subID, "Graph"))
+          }
+        }
+        else {
+          if (0 %in% subID) {
+            temp = subID[-(which(subID %in% 0))]
+
+            return(paste("Task", paste(as.character(temp), collapse = ", ")), "Graph")
+          }
+          else {
+            return (paste("Task", paste(
+              as.character(subID), collapse = ", "
+            ), "Graph"))
+          }
+        }
+      }
+    }
+
+    if (type == "neighbour") {
+      second = ""
+      first = ""
+
+      if (neighbouroption == "task") {
+        if (length(subID) == 1) {
+          if (subID == 0) {
+            second = "on shared graph"
+          }
+          else {
+            second = paste("on task",
+                           paste(as.character(subID), collapse = ", "),
+                           "graph")
+          }
+        }
+        else {
+          if (!is.null(subID)) {
+            if (0 %in% subID) {
+              temp = subID[-(which(subID %in% 0))]
+
+              second = paste("on task",
+                             paste(as.character(temp), collapse = ", "),
+                             "graph")
+            }
+            else {
+              second = paste("on task",
+                             paste(as.character(subID), collapse = ", "),
+                             "graph")
+            }
+          }
+          else {
+            second = "on all graphs"
+          }
+        }
+      }
+      else{
+        second = paste("on task",
+                       paste(as.character(subID), collapse = ", "),
+                       "specific graph")
+      }
+
+      if (is.null(graphlabel) || is.na(graphlabel)) {
+        first = paste("Zoom in at node", paste(as.character(index), collapse = ", "))
+      }
+
+      else {
+        first = paste("Zoom in at node", paste(as.character(graphlabel[index]), collapse = ", "))
+      }
+
+      return (paste(first, second))
+    }
+
+  }
+
+## helper function to create layout for graph
+.makelayout <-
+  function(x,
+           option = "2D",
+           graphlayout = NULL)
+  {
+    if (is.null(graphlayout)) {
+      if (option == "2D" | option == "interactive") {
+        graphlayout = layout_nicely(x, dim = 2)
+
+      }
+      if (option == "3D") {
+        graphlayout = layout_nicely(x, dim = 3)
+      }
+    }
+    return(graphlayout)
+  }
