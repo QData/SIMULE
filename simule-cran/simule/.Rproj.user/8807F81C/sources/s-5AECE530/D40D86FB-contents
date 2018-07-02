@@ -1,0 +1,63 @@
+### convert rd file to comment
+convert_Rd_to_comment <-
+  function(file = NULL){
+    library('roxygen2')
+    library('Rd2roxygen')
+    options(roxygen.comment = "#' ")
+    rd.file = file
+    info <- parse_file(rd.file)
+    cat(create_roxygen(info), sep = "\n")
+}
+
+### force graph not to be plotted (for getting the returned result while not plotting)
+disable_plot <- function(graph = NULL){
+  pdf(file = NULL)
+  par(ask=F)
+  ### can be any kind of plotting function
+  plot(graph)
+  dev.off()
+}
+
+### compress rda file for passing check
+compress_save <- function(dataname = NULL, filename = NULL){
+save(dataname, file = filename, compress='xz')
+}
+
+### roxygen2 comment for returngraph
+if (FALSE){
+#' return igraph object from simule result specified by user input
+#'
+#' This function can return an igraph object from simule result for user to work with directly
+#' @author Beilun Wang, Zhaoyang Wang (Author), Beilun Wang, Zhaoyang Wang (maintainer)
+#' @param simuleresult output generated from simule/wsimule function (simule/wsimule class)
+#' @param type type of graph, there are four options:
+#' (1) "task" (graph for each task (including shared part) specified further by subID (task number))
+#' (2) "share" (shared graph for all tasks)
+#' (3) "taskspecific" (graph for each task specific (excluding shared part)
+#' specified further by subID (task number) )
+#' (4) "neighbour" (zoom into nodes in the graph specified further by neighbouroptoin, subID (task number)
+#' and index (node id))
+#' @param neighbouroption determines what type of graph to zoom into when parameter type is "neighbour"
+#' There are two options:
+#' (1) "task" (zoom into graph for each task (including shared part))
+#' (2) "taskspecific" (zoom into graph for each task specific (excluding shared part))
+#' @param subID selects which task to display
+#' (1) 0 (only allowed when type is task or type is neighbour and neighbouroption is task) (selecting share graph)
+#' (2) positive task number (selects a task number)
+#' (3) a vector of task number (selects multiple tasks)
+#' (4) NULL (selects all tasks (all graphs))
+#' @param index determines which node(s) to zoom into when parameter type is "neighbour"
+#' could either be an integer or vector of integers representing node ids
+#' (zoom into one node or multiple nodes)
+#' @return an igraph object of graph / subgraph from simule result specified by user input
+#' @details the function aims to provide users the flexibility to explore and visualize the graph own their own
+#' generated from simule / wsimule
+#' @examples
+#' data(exampleData)
+#' result = simule(X = exampleData , lambda = 0.1, epsilon = 0.45, covType = "cov", TRUE)
+#' graph = returngraph.simule(result, type="task")
+#' @export
+#' @import igraph
+#' @method returngraph simule
+}
+

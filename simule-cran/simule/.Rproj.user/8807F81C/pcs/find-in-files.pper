@@ -1,0 +1,10 @@
+{
+    "dialog-state" : {
+        "caseSensitive" : false,
+        "filePatterns" : [
+        ],
+        "path" : "E:/Github/SIMULE/simule-cran/simule",
+        "query" : "file",
+        "regex" : false
+    }
+}

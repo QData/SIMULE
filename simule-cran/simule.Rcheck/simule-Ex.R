@@ -1,0 +1,150 @@
+pkgname <- "simule"
+source(file.path(R.home("share"), "R", "examples-header.R"))
+options(warn = 1)
+options(pager = "console")
+base::assign(".ExTimings", "simule-Ex.timings", pos = 'CheckExEnv')
+base::cat("name\tuser\tsystem\telapsed\n", file=base::get(".ExTimings", pos = 'CheckExEnv'))
+base::assign(".format_ptime",
+function(x) {
+  if(!is.na(x[4L])) x[1L] <- x[1L] + x[4L]
+  if(!is.na(x[5L])) x[2L] <- x[2L] + x[5L]
+  options(OutDec = '.')
+  format(x[1L:3L], digits = 7L)
+},
+pos = 'CheckExEnv')
+
+### * </HEADER>
+library('simule')
+
+base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+cleanEx()
+nameEx("plot.simule")
+### * plot.simule
+
+flush(stderr()); flush(stdout())
+
+base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+### Name: plot.simule
+### Title: Plot simule result specified by user input
+### Aliases: plot.simule
+
+### ** Examples
+
+## Not run: 
+##D data(exampleData)
+##D result = simule(X = exampleData , lambda = 0.1, epsilon = 0.45, covType = "cov", FALSE)
+##D plot.simule(result,  graphlabel = NULL, type="task", graphlayout = NULL)
+## End(Not run)
+
+
+
+base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+base::cat("plot.simule", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+cleanEx()
+nameEx("returngraph")
+### * returngraph
+
+flush(stderr()); flush(stdout())
+
+base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+### Name: returngraph
+### Title: return igraph object from simule result specified by user input
+### Aliases: returngraph
+
+### ** Examples
+
+## Not run: 
+##D data(exampleData)
+##D result = simule(X = exampleData , lambda = 0.1, epsilon = 0.45, covType = "cov", TRUE)
+##D graph = returngraph(result, type="task")
+## End(Not run)
+
+
+
+base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+base::cat("returngraph", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+cleanEx()
+nameEx("simule-package")
+### * simule-package
+
+flush(stderr()); flush(stdout())
+
+base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+### Name: simule-package
+### Title: Shared and Individual parts of MULtiple graphs Explicitly
+### Aliases: simule-package
+### Keywords: package
+
+### ** Examples
+
+## Not run: 
+##D data(exampleData)
+##D simule(X = exampleData , 0.05, 1, covType = "cov", TRUE)
+##D wsimule(X = exampleData , 0.05, 1, W = matrix(1,100,100), covType = "cov", TRUE)
+## End(Not run)
+
+
+
+base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+base::cat("simule-package", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+cleanEx()
+nameEx("simule")
+### * simule
+
+flush(stderr()); flush(stdout())
+
+base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+### Name: simule
+### Title: A constrained l1 minimization approach for estimating multiple
+###   Sparse Gaussian or Nonparanormal Graphical Models Estimate multiple,
+###   related sparse Gaussian or Nonparanormal graphical
+### Aliases: simule
+
+### ** Examples
+
+## Not run: 
+##D data(exampleData)
+##D result = simule(X = exampleData , lambda = 0.1, epsilon = 0.45, covType = "cov", FALSE)
+##D plot.simule(result)
+## End(Not run)
+
+
+
+base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+base::cat("simule", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+cleanEx()
+nameEx("wsimule")
+### * wsimule
+
+flush(stderr()); flush(stdout())
+
+base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+### Name: wsimule
+### Title: A constrained and weighted l1 minimization approach for
+###   estimating multiple Sparse Gaussian or Nonparanormal Graphical Models
+### Aliases: wsimule
+
+### ** Examples
+
+## Not run: 
+##D data(exampleData)
+##D result = wsimule(X = exampleData , lambda = 0.1, epsilon = 0.45,
+##D W = matrix(1,20,20), covType = "cov", FALSE)
+##D plot.simule(result)
+## End(Not run)
+
+
+
+base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+base::cat("wsimule", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+### * <FOOTER>
+###
+options(digits = 7L)
+base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
+grDevices::dev.off()
+###
+### Local variables: ***
+### mode: outline-minor ***
+### outline-regexp: "\\(> \\)?### [*]+" ***
+### End: ***
+quit('no')

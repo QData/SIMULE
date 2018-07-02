@@ -1,0 +1,19 @@
+cancer                  Microarray data set for breast cancer
+exampleData             A simulated toy dataset that includes 2 data
+                        matrices (from 2 related tasks).
+exampleDataGraph        A simulated toy dataset that includes 3 igraph
+                        objects
+nip_37_data             NIPS word count dataset
+plot.simule             Plot simule result specified by user input
+returngraph             return igraph object from simule result
+                        specified by user input
+simule                  A constrained l1 minimization approach for
+                        estimating multiple Sparse Gaussian or
+                        Nonparanormal Graphical Models Estimate
+                        multiple, related sparse Gaussian or
+                        Nonparanormal graphical
+simule-package          Shared and Individual parts of MULtiple graphs
+                        Explicitly
+wsimule                 A constrained and weighted l1 minimization
+                        approach for estimating multiple Sparse
+                        Gaussian or Nonparanormal Graphical Models
