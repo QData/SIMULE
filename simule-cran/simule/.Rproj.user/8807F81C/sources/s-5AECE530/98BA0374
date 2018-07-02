@@ -4,16 +4,16 @@
     "created" : 1530559715303.000,
     "dirty" : false,
     "encoding" : "UTF-8",
-    "folds" : "4|3|26|2|\n35|3|125|2|\n131|3|137|2|\n",
+    "folds" : "4|3|26|2|\n35|3|125|2|\n131|3|137|2|\n180|26|255|2|\n317|3|369|2|\n",
     "hash" : "0",
     "id" : "98BA0374",
-    "lastKnownWriteTime" : 1530561470,
-    "last_content_update" : 1530561470505,
+    "lastKnownWriteTime" : 1530563157,
+    "last_content_update" : 1530563157388,
     "path" : "E:/Github/SIMULE/simule-cran/simule/R/Plot.R",
     "project_path" : "R/Plot.R",
     "properties" : {
-        "cursorPosition" : "143,37",
-        "scrollLine" : "30"
+        "cursorPosition" : "266,20",
+        "scrollLine" : "181"
     },
     "relative_order" : 3,
     "source_on_save" : false,

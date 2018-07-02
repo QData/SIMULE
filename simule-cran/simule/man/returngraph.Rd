@@ -51,5 +51,5 @@ graph = returngraph(result, type="task")
 }
 }
 \author{
-Beilun Wang, Zhaoyang Wang (Author), Zhaoyang Wang (maintainer)
+Beilun Wang, Zhaoyang Wang (Author), Beilun Wang (maintainer)
 }

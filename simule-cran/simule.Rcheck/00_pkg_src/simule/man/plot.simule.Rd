@@ -66,5 +66,5 @@ plot.simule(result,  graphlabel = NULL, type="task", graphlayout = NULL)
 }
 }
 \author{
-Beilun Wang, Zhaoyang Wang (Author), Zhaoyang Wang (maintainer)
+Beilun Wang, Zhaoyang Wang (Author), Beilun Wang (maintainer)
 }

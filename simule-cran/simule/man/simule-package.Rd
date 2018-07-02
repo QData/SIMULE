@@ -19,7 +19,7 @@ Identifying context-specific entity networks from aggregated data is an importan
 }
 \author{
 Beilun Wang, Zhaoyang Wang (Arthur)
-Beilun Wang, Zhaoyang Wang (Maintainer)
+Beilun Wang(Maintainer)
 }
 \references{
 Beilun Wang, Ritambhara Singh, Yanjun Qi (2017).  A constrained L1 minimization approach for estimating multiple Sparse Gaussian or Nonparanormal Graphical Models. <http://link.springer.com/article/10.1007/s10994-017-5635-7>
