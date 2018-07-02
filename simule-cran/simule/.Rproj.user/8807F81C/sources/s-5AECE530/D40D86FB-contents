@@ -1,4 +1,5 @@
-### convert rd file to comment
+#' convert rd file to comment
+#' @param file path to Rdfile to be converted to comments
 convert_Rd_to_comment <-
   function(file = NULL){
     library('roxygen2')
