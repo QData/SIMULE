@@ -1,0 +1,17 @@
+[0mMicrosoft Windows [Version 10.0.17134.48][0K[?25l
+(c) 2018 Microsoft Corporation. All rights reserved.[0K
+[0K
+E:\Github\SIMULE\simule-cran\simule>[0K[?25hR[0K[39G[?25lE:\Github\SIMULE\simule-cran\simule>R C[0K[?25hM[0KD[0K[43G[?25lE:\Github\SIMULE\simule-cran\simule>R CMD c[0K[?25hh[0Ke[0Kc[0Kk[0K[49G[?25lE:\Github\SIMULE\simule-cran\simule>R CMD check -[0K[?25h-[0Kc[0Kr[0Ka[0Kn[0K]0;  - R  CMD check --cran[?25l
+[0K[?25hWarning: unknown option '--cran'[0K[?25l
+Error: no packages were specified[0K
+[0K[?25h]0; [?25l
+E:\Github\SIMULE\simule-cran\simule>[0K[?25hR[0K[39G[?25lE:\Github\SIMULE\simule-cran\simule>R C[0K[?25hM[0KD[0K[43G[?25lE:\Github\SIMULE\simule-cran\simule>R CMD c[0K[?25hh[0Ke[0Kc[0Kk[0K[49G[?25lE:\Github\SIMULE\simule-cran\simule>R CMD check -[0K[?25h-[0Ka[0Ks[0K-[0Kc[0Kr[0Ka[0Kn[0K]0;  - R  CMD check --as-cran[?25l
+[0K[?25h]0; Error: no packages were specified[0K[?25l
+[0K
+E:\Github\SIMULE\simule-cran\simule>[0K[?25hc[0Kd[0K[40G[?25lE:\Github\SIMULE\simule-cran\simule>cd .[0K[?25h.[0K[?25l
+[0K
+E:\Github\SIMULE\simule-cran>[0K[?25hl[0Ks[0K[?25l
+'ls' is not recognized as an internal or external command,[0K
+operable program or batch file.[0K
+[0K
+E:\Github\SIMULE\simule-cran>[0K[?25hc[0K[?25lE:\Github\SIMULE\simule-cran>[0K[?25hR[0K[32G[?25lE:\Github\SIMULE\simule-cran>R C[0K[?25hM[0KD[0K[36G[?25lE:\Github\SIMULE\simule-cran>R CMD c[0K[?25hh[0Ke[0Kk[0K[?25lE:\Github\SIMULE\simule-cran>R CMD che[0K[?25h[?25lE:\Github\SIMULE\simule-cran>R CMD ch[0K[?25h[?25lE:\Github\SIMULE\simule-cran>R CMD c[0K[?25h[?25lE:\Github\SIMULE\simule-cran>R CMD[0K[36G[?25h[35G[?25lE:\Github\SIMULE\simule-cran>R CM[0K[?25h[?25lE:\Github\SIMULE\simule-cran>R C[0K[?25h[?25lE:\Github\SIMULE\simule-cran>R[0K[32G[?25h[31G[?25lE:\Github\SIMULE\simule-cran>[0K[?25h

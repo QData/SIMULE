@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1530561729838.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1806444958",
+    "id" : "95C83A6E",
+    "lastKnownWriteTime" : 1530561754,
+    "last_content_update" : 1530561754411,
+    "path" : "E:/Github/SIMULE/simule-cran/simule/man/simule-package.Rd",
+    "project_path" : "man/simule-package.Rd",
+    "properties" : {
+        "cursorPosition" : "14,21",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 7,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_doc"
+}
