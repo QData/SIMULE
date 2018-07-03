@@ -1,0 +1,5 @@
+simule   A brief demo for simule algorithm including data from cancer, simulated gaussian and word count
+wsimule  A brief demo for wsimule algorithm  including data from cancer, simulated gaussian and word count
+cancer   A more detailed demo for simule algorithm with cancer data 
+synthetic  A more detailed demo for simule algorithm with synthetic gaussian data 
+word      A more detailed demo for simule algorithm with word count data 
